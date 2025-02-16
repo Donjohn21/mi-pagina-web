@@ -1,0 +1,21 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Surge
+        uses: surge-sh/action@v1
+        with:
+          surge-token: ${{ secrets.SURGE_TOKEN }}
+
+      - name: Deploy to Surge
+        run: surge ./path-to-your-build-folder --domain your-custom-domain.surge.sh
